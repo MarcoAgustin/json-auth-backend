@@ -12,7 +12,13 @@ var mongoose = require('mongoose');
 mongoose
   .connect(process.env.MONGODB_URI, { useNewUrlParser: true})
   .then(() => console.log('MONGODB CONNECTED'))
-  .catch(err => console.log(err));
+  .catch(err => {
+    const status = err.status
+    const message = err.message;
+    res.status(statusCode).json ({
+      message:message
+    });
+  });
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
